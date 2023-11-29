@@ -1,7 +1,7 @@
 import torch 
 import torch.nn as nn
 import torch.nn.functional as F
-from Synthetic_MultiClassData import generate_multiclass_synthetic_data
+from GENSynthetic_MultiClassData import generate_multiclass_synthetic_data
 
 X_data, y_data = generate_multiclass_synthetic_data(100,5,3)
 
