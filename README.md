@@ -25,4 +25,5 @@ Contributions are welcome! If you have a suggestion or improvement, please fork 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 Happy Learning!
+there is a readme inside each dir to describe code 
 ```
