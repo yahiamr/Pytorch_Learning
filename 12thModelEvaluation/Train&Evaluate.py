@@ -32,3 +32,17 @@ def train_one_epoch(model,dataloader,optimizer,criterion):
         loss.backward()
 
         optimizer.step()
+
+
+# Main execution code or additional functions can be here
+if __name__ == "__main__":
+    # Create an instance of your model
+    model = YourModel()
+
+    # Other initializations (dataloaders, optimizers, etc.)
+    # ...
+
+    # Example training loop
+    for epoch in range(num_epochs):
+        train_one_epoch(model, dataloader, optimizer, criterion)
+        # Additional code for each epoch can be added here
