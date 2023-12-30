@@ -41,7 +41,11 @@ if __name__ == "__main__":
 
     # Other initializations (dataloaders, optimizers, etc.)
     # ...
-
+    num_epochs= 0
+    model = 0
+    dataloader = 0
+    optimizer = 0
+    criterion = 0
     # Example training loop
     for epoch in range(num_epochs):
         train_one_epoch(model, dataloader, optimizer, criterion)
