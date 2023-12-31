@@ -27,3 +27,9 @@ class GenericNet(nn.Module):
 
     def forward(self, x):
         return self.layers(x)
+
+
+#### Example USAGE #####
+#-----   
+#model = GenericNet(input_size=20, hidden_layers=[50, 30], output_size=3)
+#-----
