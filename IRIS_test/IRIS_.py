@@ -43,3 +43,17 @@ model = GenericNet(input_size=4, hidden_layers=[10, 10], output_size=3)
 train_loader = DataLoader(dataset=train_dataset,batch_size=16,shuffle=True)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(),lr=0.001)
+
+epochs = 100
+for epoch in range(epochs):
+    for features,labels in train_loader:
+        
+        optimizer.zero_grad()
+        outputs = model(features)
+
+        loss = criterion(outputs,labels)
+        loss.backward()
+
+        optimizer.step()
+
+    print(f"Epoch {epoch+1}/{epochs}, Loss: {loss.item():.4f}")
