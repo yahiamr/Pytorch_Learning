@@ -5,7 +5,9 @@ from torch.utils.data import Dataset, DataLoader
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-import GenericNet
+from GenericNet import GenericNet
+
+
 # Load the iris dataset
 iris = datasets.load_iris()
 X = iris.data
@@ -37,3 +39,7 @@ test_dataset = IrisDataset(X_test, y_test)
 
 
 model = GenericNet(input_size=4, hidden_layers=[10, 10], output_size=3)
+
+train_loader = DataLoader(dataset=train_dataset,batch_size=16,shuffle=True)
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.Adam(model.parameters(),lr=0.001)
