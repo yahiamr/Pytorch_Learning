@@ -7,6 +7,40 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from GenericNet import GenericNet
 
+def train_one_epoch(model, train_loader, optimizer, criterion):
+    model.train()  # Set the model to training mode
+    total_train_loss = 0
+
+    for features, labels in train_loader:
+        optimizer.zero_grad()
+        outputs = model(features)
+        loss = criterion(outputs, labels)
+        loss.backward()
+        optimizer.step()
+        total_train_loss += loss.item()
+
+    avg_train_loss = total_train_loss / len(train_loader)
+    return avg_train_loss
+
+def evaluate_model(model, test_loader, criterion):
+    model.eval()  # Set the model to evaluation mode
+    total_test_loss = 0
+    correct_predictions = 0
+
+    with torch.no_grad():  # No need to track gradients
+        for features, labels in test_loader:
+            outputs = model(features)
+            loss = criterion(outputs, labels)
+            total_test_loss += loss.item()
+            _, predicted = torch.max(outputs.data, 1)
+            correct_predictions += (predicted == labels).sum().item()
+
+    avg_test_loss = total_test_loss / len(test_loader)
+    test_accuracy = correct_predictions / len(test_loader.dataset)
+    return avg_test_loss, test_accuracy
+
+def print_epoch_summary(epoch, epochs, train_loss, test_loss, test_accuracy):
+    print(f"Epoch {epoch+1}/{epochs}, Train Loss: {train_loss:.4f}, Test Loss: {test_loss:.4f}, Test Accuracy: {test_accuracy:.4f}")
 
 # Load the iris dataset
 iris = datasets.load_iris()
@@ -46,42 +80,9 @@ test_loader = DataLoader(dataset=test_dataset, batch_size=16, shuffle=False)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(),lr=0.001)
 
+# Training loop
 epochs = 100
 for epoch in range(epochs):
-
-     # Set the model to training mode
-    model.train()
-    total_train_loss = 0
-
-    for features,labels in train_loader:
-        
-        optimizer.zero_grad()
-        outputs = model(features)
-
-        loss = criterion(outputs,labels)
-        loss.backward()
-
-        optimizer.step()
-        total_train_loss += loss.item()
-
-    avg_train_loss = total_train_loss / len(train_loader)
-
-    # Evaluation loop after each training epoch
-    model.eval()  # Set the model to evaluation mode
-    total_test_loss = 0
-    correct_predictions = 0
-    total_predictions = 0
-
-    with torch.no_grad():  # No need to track gradients
-        for features, labels in test_loader:
-            outputs = model(features)
-            loss = criterion(outputs, labels)
-            total_test_loss += loss.item()
-
-            _, predicted = torch.max(outputs.data, 1)
-            total_predictions += labels.size(0)
-            correct_predictions += (predicted == labels).sum().item()
-
-    avg_test_loss = total_test_loss / len(test_loader)
-    test_accuracy = correct_predictions / total_predictions
-    print(f"Epoch {epoch+1}/{epochs}, Loss: {loss.item():.4f}")
+    avg_train_loss = train_one_epoch(model, train_loader, optimizer, criterion)
+    avg_test_loss, test_accuracy = evaluate_model(model, test_loader, criterion)
+    print_epoch_summary(epoch, epochs, avg_train_loss, avg_test_loss, test_accuracy)
