@@ -41,11 +41,18 @@ test_dataset = IrisDataset(X_test, y_test)
 model = GenericNet(input_size=4, hidden_layers=[10, 10], output_size=3)
 
 train_loader = DataLoader(dataset=train_dataset,batch_size=16,shuffle=True)
+test_loader = DataLoader(dataset=test_dataset, batch_size=16, shuffle=False)
+
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(),lr=0.001)
 
 epochs = 100
 for epoch in range(epochs):
+
+     # Set the model to training mode
+    model.train()
+    total_train_loss = 0
+
     for features,labels in train_loader:
         
         optimizer.zero_grad()
@@ -55,5 +62,26 @@ for epoch in range(epochs):
         loss.backward()
 
         optimizer.step()
+        total_train_loss += loss.item()
 
+    avg_train_loss = total_train_loss / len(train_loader)
+
+    # Evaluation loop after each training epoch
+    model.eval()  # Set the model to evaluation mode
+    total_test_loss = 0
+    correct_predictions = 0
+    total_predictions = 0
+
+    with torch.no_grad():  # No need to track gradients
+        for features, labels in test_loader:
+            outputs = model(features)
+            loss = criterion(outputs, labels)
+            total_test_loss += loss.item()
+
+            _, predicted = torch.max(outputs.data, 1)
+            total_predictions += labels.size(0)
+            correct_predictions += (predicted == labels).sum().item()
+
+    avg_test_loss = total_test_loss / len(test_loader)
+    test_accuracy = correct_predictions / total_predictions
     print(f"Epoch {epoch+1}/{epochs}, Loss: {loss.item():.4f}")
