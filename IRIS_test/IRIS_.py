@@ -39,9 +39,24 @@ test_loader = DataLoader(dataset=test_dataset, batch_size=16, shuffle=False)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
+# Initialize lists to track metrics
+train_losses = []
+test_losses = []
+test_accuracies = []
+
 # Training loop
 epochs = 100
 for epoch in range(epochs):
     avg_train_loss = train_one_epoch(model, train_loader, optimizer, criterion)
     avg_test_loss, test_accuracy = evaluate_model(model, test_loader, criterion)
+
+    # Store metrics
+    train_losses.append(avg_train_loss)
+    test_losses.append(avg_test_loss)
+    test_accuracies.append(test_accuracy)
+
     print_epoch_summary(epoch, epochs, avg_train_loss, avg_test_loss, test_accuracy)
+
+# Plotting
+plot_losses(train_losses, test_losses)
+plot_accuracy(test_accuracies)
