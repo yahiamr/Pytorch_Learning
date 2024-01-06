@@ -1,0 +1,1 @@
+# for genericnet class usage
