@@ -2,7 +2,7 @@
 # train_plotter.py
 import matplotlib.pyplot as plt
 
-def plot_losses(train_losses, val_losses, title='Training and Validation Loss'):
+def plot_losses(train_losses, val_losses, title='Training and Validation Loss', save_filename='loss_plot.png'):
     """
     Plots the training and validation loss over epochs.
 
@@ -19,9 +19,10 @@ def plot_losses(train_losses, val_losses, title='Training and Validation Loss'):
     plt.ylabel('Loss')
     plt.legend()
     plt.grid(True)
+    plt.savefig(save_filename)  # Save the plot as a file
     plt.show()
 
-def plot_accuracy(accuracies, title='Validation Accuracy'):
+def plot_accuracy(accuracies, title='Validation Accuracy', save_filename='accuracy_plot.png'):
     """
     Plots the validation accuracy over epochs.
 
@@ -36,4 +37,5 @@ def plot_accuracy(accuracies, title='Validation Accuracy'):
     plt.ylabel('Accuracy')
     plt.legend()
     plt.grid(True)
+    plt.savefig(save_filename)  # Save the plot as a file
     plt.show()

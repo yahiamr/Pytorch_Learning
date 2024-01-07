@@ -72,5 +72,5 @@ for epoch in range(epochs):
     print_epoch_summary(epoch, epochs, avg_train_loss, avg_test_loss, test_accuracy)
 
 # Plotting
-plot_losses(train_losses, test_losses)
-plot_accuracy(test_accuracies)
+plot_losses(train_losses, test_losses, save_filename='IRIS_test/train_val_loss_plot.png')
+plot_accuracy(test_accuracies, save_filename='IRIS_test/val_accuracy_plot.png')
