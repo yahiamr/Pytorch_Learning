@@ -8,7 +8,21 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from GenericNet import GenericNet
 from train_utils import train_one_epoch, evaluate_model, print_epoch_summary
-from iris_dataset import IrisDataset
+from train_plotter import plot_accuracy,plot_losses
+from torch.utils.data import Dataset
+
+
+class IrisDataset(Dataset):
+     def __init__(self, X, y):
+         self.X = X
+         self.y = y
+
+     def __len__(self):
+         return len(self.X)
+
+     def __getitem__(self, idx):
+         return self.X[idx], self.y[idx]
+     
 
 # Load the iris dataset
 iris = datasets.load_iris()
