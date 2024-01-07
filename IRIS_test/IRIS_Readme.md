@@ -50,16 +50,14 @@ The model is trained on the Iris dataset over multiple epochs, and we track metr
 
 ### Training and Validation Loss
 
-![Training and Validation Loss](IRIS_test/train_val_loss_plot.png)
+![Training and Validation Loss](train_val_loss_plot.png)
 
 *This plot illustrates the training and validation loss over each epoch, showcasing the model's learning curve.*
 
 ### Validation Accuracy
 
-![Validation Accuracy](IRIS_test/val_accuracy_plot.png)
+![Validation Accuracy](val_accuracy_plot.png)
 
 *This plot displays the validation accuracy per epoch, highlighting the model's performance in classifying the Iris species.*
 
 ---
-
-**Note:** Ensure that the paths to the images in the README (`IRIS_test/train_val_loss_plot.png` and `IRIS_test/val_accuracy_plot.png`) correctly point to where your images are stored. If you're hosting this project on a platform like GitHub, you might want to upload these images to your repository and use relative paths to link them in the README.
