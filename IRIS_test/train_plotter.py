@@ -1,5 +1,3 @@
-# for plotting during training process
-# train_plotter.py
 import matplotlib.pyplot as plt
 
 def plot_losses(train_losses, val_losses, title='Training and Validation Loss', save_filename='loss_plot.png'):
