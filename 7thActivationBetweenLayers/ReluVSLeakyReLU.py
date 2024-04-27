@@ -10,7 +10,7 @@ features, labels = generate_synthetic_data(100,10)
 
 # Generate data and split into training and testing sets
 features, labels = generate_synthetic_data(100, 10)
-X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.25, random_state=42)
 
 # Create datasets and dataloaders
 train_dataset = TensorDataset(X_train.float(), y_train.float())
