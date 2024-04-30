@@ -21,12 +21,12 @@ test_loader = DataLoader(test_dataset, batch_size=10, shuffle=False)
 
 # Define models with ReLU and LeakyReLU
 model_relu = nn.Sequential(
-    nn.Linear(10, 20),
+    nn.Linear(10, 45),
     nn.ReLU(),
-    nn.Linear(20, 5),
+    nn.Linear(45, 15),
     nn.ReLU(),
     # Add more layers as needed
-    nn.Linear(5, 1)
+    nn.Linear(15, 1)
 )
 
 model_leakyrelu = nn.Sequential(
